@@ -63,72 +63,76 @@
     unconditional theorems.
   \end{abstract}
 
-  \newpage
-  \tableofcontents
-  \newpage
+  \paragraph{Keywords.}
+    spectral atomicity, admissible projection, Mosco convergence, Dirichlet forms, Heisenberg group, Weil
+    representation, spectral gap, Fourier modes, finite-dimensional reduction
+
+    \newpage
+    \tableofcontents
+    \newpage
 
   \section{Introduction}
-    \label{sec:intro}
+  \label{sec:intro}
 
 
-    The paper~\cite{Beau2026q5a} (Q5a) establishes a conditional framework
-    for the large-$q$ limit of the admissible fibre $\ran(\Pi_q) \subset \Cq$.
-    Two analytic hypotheses remained open:
-    \begin{itemize}
-      \item \textbf{[H-$\mathcal{E}$1]:} uniform Poincar\'e inequality for the
-      admissible Dirichlet form $\Eq$;
-      \item \textbf{[C]:} spectral tightness implying Mosco convergence
-      $\Eq \xrightarrow{\mathrm{Mosco}} \mathcal{E}$.
-    \end{itemize}
+  The paper~\cite{Beau2026q5a} (Q5a) establishes a conditional framework
+  for the large-$q$ limit of the admissible fibre $\ran(\Pi_q) \subset \Cq$.
+  Two analytic hypotheses remained open:
+  \begin{itemize}
+    \item \textbf{[H-$\mathcal{E}$1]:} uniform Poincar\'e inequality for the
+    admissible Dirichlet form $\Eq$;
+    \item \textbf{[C]:} spectral tightness implying Mosco convergence
+    $\Eq \xrightarrow{\mathrm{Mosco}} \mathcal{E}$.
+  \end{itemize}
 
-    The approach planned in~\cite{Beau2026q5a} was analytic: Nash
-    inequalities for filtered Heisenberg graphs, discrete Rellich, and
-    $\ell^1$ control.
-    The present paper identifies a deeper structure that makes this
-    machinery unnecessary.
+  The approach planned in~\cite{Beau2026q5a} was analytic: Nash
+  inequalities for filtered Heisenberg graphs, discrete Rellich, and
+  $\ell^1$ control.
+  The present paper identifies a deeper structure that makes this
+  machinery unnecessary.
 
-    \paragraph{Main discovery.}
-      The admissible projection $\Pi_q$, properly identified via its
-      $\mathcal{H}_{\mathrm eff}$-projection coordinates (the \texttt{pi\_c}
-      arrays), restricts each conjugate pair $(c, q-c)$ to a
-      three-dimensional subspace spanned by exactly three pure Fourier modes:
-      \[
-        \ran(\Pi_q^{(c)}) = \mathrm{span}\{\exi{0},\, \exi{\xic},\,
-        \exi{q-\xic}\},
-        \qquad \frac{\xic}{q} \to \omegac \in (0,\tfrac{1}{2}).
-      \]
-      This spectral atomicity (Proposition~\ref{prop:atomicity}) is confirmed
-      numerically at machine precision across $q \in \{29, 61, 101, 151\}$
-      and established analytically from the BFS pre-saturation geometry and
-      the Born--Infeld parity involution $c \leftrightarrow q-c$.
-      In particular, admissibility acts as a \emph{spectral selector},
-      reducing the full $q$-dimensional Fourier spectrum to a finite set of
-      spectral atoms, yielding an intrinsic finite-dimensional spectral structure
-      for the admissible sector that is independent of $q$.
+  \paragraph{Main discovery.}
+    The admissible projection $\Pi_q$, properly identified via its
+    $\mathcal{H}_{\mathrm eff}$-projection coordinates (the \texttt{pi\_c}
+    arrays), restricts each conjugate pair $(c, q-c)$ to a
+    three-dimensional subspace spanned by exactly three pure Fourier modes:
+    \[
+      \ran(\Pi_q^{(c)}) = \mathrm{span}\{\exi{0},\, \exi{\xic},\,
+      \exi{q-\xic}\},
+      \qquad \frac{\xic}{q} \to \omegac \in (0,\tfrac{1}{2}).
+    \]
+    This spectral atomicity (Proposition~\ref{prop:atomicity}) is confirmed
+    numerically at machine precision across $q \in \{29, 61, 101, 151\}$
+    and established analytically from the BFS pre-saturation geometry and
+    the Born--Infeld parity involution $c \leftrightarrow q-c$.
+    In particular, admissibility acts as a \emph{spectral selector},
+    reducing the full $q$-dimensional Fourier spectrum to a finite set of
+    spectral atoms, yielding an intrinsic finite-dimensional spectral structure
+    for the admissible sector that is independent of $q$.
 
-    \paragraph{Consequences.}
-      Scaled coercivity (Theorem~\ref{thm:coercivity}) follows immediately:
-      the non-constant admissible modes are locked at frequency $\omegac \neq 0$,
-      giving a uniform lower bound $\Eq(f,f) \geq \alpha q^{-1}\|f\|^2$ with
-      $\alpha = 4\,a_{\min}\sin^2(\pi\omega_{\min}) > 0$ independent of $q$.
-      Since the Dirichlet form sums over generators, a lower bound from the single
-      generator $X$ suffices.
-      Mosco compactness (Theorem~\ref{thm:mosco}) follows from
-      Bolzano--Weierstrass in $\C^2$ (after removal of the constant mode):
-      unit normalisation of $f_q$ bounds the two non-trivial coefficients,
-      and frequency convergence $\xic/q \to \omegac$ gives strong $L^2$ convergence.
+  \paragraph{Consequences.}
+    Scaled coercivity (Theorem~\ref{thm:coercivity}) follows immediately:
+    the non-constant admissible modes are locked at frequency $\omegac \neq 0$,
+    giving a uniform lower bound $\Eq(f,f) \geq \alpha q^{-1}\|f\|^2$ with
+    $\alpha = 4\,a_{\min}\sin^2(\pi\omega_{\min}) > 0$ independent of $q$.
+    Since the Dirichlet form sums over generators, a lower bound from the single
+    generator $X$ suffices.
+    Mosco compactness (Theorem~\ref{thm:mosco}) follows from
+    Bolzano--Weierstrass in $\C^2$ (after removal of the constant mode):
+    unit normalisation of $f_q$ bounds the two non-trivial coefficients,
+    and frequency convergence $\xic/q \to \omegac$ gives strong $L^2$ convergence.
 
-    \paragraph{Organisation.}
-      Section~\ref{sec:setup} recalls the setup and distinguishes the two
-      projection objects present in the numerical pipeline.
-      Section~\ref{sec:mean-zero} establishes the mean-zero property and
-      reformulates [H-$\mathcal{E}$1].
-      Section~\ref{sec:atomicity} states and proves spectral atomicity.
-      Section~\ref{sec:freq-convergence} establishes macroscopic frequency
-      convergence.
-      Section~\ref{sec:coercivity} proves uniform coercivity.
-      Section~\ref{sec:mosco} proves Mosco compactness.
-      Section~\ref{sec:update} records the updated status of Q5a.
+  \paragraph{Organisation.}
+    Section~\ref{sec:setup} recalls the setup and distinguishes the two
+    projection objects present in the numerical pipeline.
+    Section~\ref{sec:mean-zero} establishes the mean-zero property and
+    reformulates [H-$\mathcal{E}$1].
+    Section~\ref{sec:atomicity} states and proves spectral atomicity.
+    Section~\ref{sec:freq-convergence} establishes macroscopic frequency
+    convergence.
+    Section~\ref{sec:coercivity} proves uniform coercivity.
+    Section~\ref{sec:mosco} proves Mosco compactness.
+    Section~\ref{sec:update} records the updated status of Q5a.
 
   \section{Setup and two projection objects}
   \label{sec:setup}
