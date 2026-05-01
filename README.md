@@ -20,7 +20,7 @@ forms.
 
 Each admissible fingerprint vector is concentrated on a single frequency:
 
-- empirical concentration: \( R_{99\%} = 1 \)
+- empirical concentration: $R_{99\%} = 1$
 - no dispersion across modes
 
 This implies:
@@ -30,21 +30,17 @@ This implies:
 
 ### 2. Three-mode structure per conjugate pair
 
-For each pair \( \{c, q-c\} \):
+For each pair $\{c, q-c\}$:
 
 - admissible subspace:
-  \[
-  \mathrm{span}\{ e_0, e_{\xi_c}, e_{\xi_c}^\ast \}
-  \]
+  $\mathrm{span}\{ e_0, e_{\xi_c}, e_{\xi_c}^\ast \}$
 - dimension:
-  \[
-  \dim H_{\text{eff}} = 3
-  \]
+  $\dim H_{\text{eff}} = 3$
 
 This matches the structural result:
 
-- \( \Sigma_c(n_3) = 3 \) (O23)
-- rank \( r_{\mathrm{eff}} = 3 \) (O28)
+- $\Sigma_c(n_3) = 3$ (O23)
+- rank $r_{\mathrm{eff}} = 3$ (O28)
 
 ### 3. Closure of analytical hypotheses
 
@@ -74,8 +70,8 @@ This defines the admissible sector as a **minimal coherent triplet**, not a cont
 
 Q5a establishes convergence of admissibility forms to a continuum operator:
 
-- Hilbert limit \( \mathbb{C}_q \to L^2(\mathbb{R}) \)
-- Mosco convergence of \( \mathcal{E}_q \to \mathcal{E} \)
+- Hilbert limit $\mathbb{C}_q \to L^2(\mathbb{R})$
+- Mosco convergence of $\mathcal{E}_q \to \mathcal{E}$
 
 Q5a-O2 strengthens this by proving:
 
@@ -85,8 +81,8 @@ Q5a-O2 strengthens this by proving:
 This aligns with:
 
 - O23: quaternionic minimality → 3 directions
-- O28: effective dimension \( r_{\mathrm{eff}} = 3 \)
-- Q7: identification \( H_{\text{eff}} \simeq \mathrm{Sym}^2(V_\rho) \)
+- O28: effective dimension $r_{\mathrm{eff}} = 3$
+- Q7: identification $H_{\text{eff}} \simeq \mathrm{Sym}^2(V_\rho)$
 
 ## Conceptual Implications
 
@@ -96,11 +92,11 @@ This aligns with:
 
 This supports the core principle:
 
-> Observable structure lives in \( \mathrm{Im}\,\Pi \), not in the full configuration space.
+> Observable structure lives in $\mathrm{Im}\,\Pi$, not in the full configuration space.
 
 ## Numerical Evidence
 
-- primes tested: \( q = 29, 61, 101, 151 \)
+- primes tested: $q = 29, 61, 101, 151$
 - all conjugate pairs:
     - exact single-frequency dominance
     - no rank inflation
