@@ -20,7 +20,7 @@ forms.
 
 Each admissible fingerprint vector is concentrated on a single frequency:
 
-- empirical concentration: $R_{\text{99%}} = 1$
+- empirical concentration: $R_{\text{99}\%} = 1$
 - no dispersion across modes
 
 This implies:
