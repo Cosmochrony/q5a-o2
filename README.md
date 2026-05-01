@@ -9,8 +9,8 @@ forms.
 - **Spectral atomicity**: each admissible pair is supported on exactly three pure Fourier modes
 - **No-mode-mixing**: admissible fingerprints behave as single-frequency eigenmodes
 - **Closure of hypotheses**:
-    - closes [H-E1] (uniform Poincaré on admissible sector)
-    - closes [C] (spectral tightening → Mosco convergence)
+    - closes \[H-E1] (uniform Poincaré on admissible sector)
+    - closes \[C] (spectral tightening → Mosco convergence)
 - **Elimination of Nash inequalities**: replaced by exact Fourier structure
 - **Structural refinement of Q5a**: strengthens convergence results without additional assumptions
 
@@ -101,9 +101,3 @@ This supports the core principle:
     - exact single-frequency dominance
     - no rank inflation
     - strict monotonicity of admissible projections
-
-## Keywords
-
-spectral atomicity, admissible projection, Fourier modes,  
-Dirichlet forms, Mosco convergence, Heisenberg group,  
-Weil representation, spectral gap, finite-dimensional reduction
