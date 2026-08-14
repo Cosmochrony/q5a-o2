@@ -1,103 +1,78 @@
-This paper establishes that the admissible sector in the Cosmochrony spectral
-programme is *spectrally atomic*: each conjugate pair spans exactly three pure
-Fourier modes. This result closes key analytical gaps in Q5a by removing the
-need for Nash-type inequalities and completing the control of admissibility
-forms.
+This repository contains the source of the **Q5a-O2** Cosmochrony paper
+*Fourier Structure of the Pre-Saturation Admissible Pipeline:
+What the Three-Coordinate Projection Does and Does Not Measure*.
+
+The paper gives the exact Fourier description of the pre-saturation numerical pipeline of the spectral
+admissibility programme, and establishes the epistemic status of its finite-rank reduction.
 
 ## Quick Summary
 
-- **Spectral atomicity**: each admissible pair is supported on exactly three pure Fourier modes
-- **No-mode-mixing**: admissible fingerprints behave as single-frequency eigenmodes
-- **Closure of hypotheses**:
-    - closes \[H-E1] (uniform Poincaré on admissible sector)
-    - closes \[C] (spectral tightening → Mosco convergence)
-- **Elimination of Nash inequalities**: replaced by exact Fourier structure
-- **Structural refinement of Q5a**: strengthens convergence results without additional assumptions
+- **Pure Fourier modes (proved)**: every BFS fingerprint evaluated at the uniform initial vector is a pure
+  Fourier mode, with frequency given by the O12 displacement formula; Gram–Schmidt preserves this purity,
+  so every selected basis vector of the pre-saturation window is a pure mode.
+- **Asymptotically small frequencies (proved)**: in the pre-saturation regime $n_*(q) = o(q)$, realised
+  frequencies satisfy $|\xi| \le c_{\max}\,n_*(q) = o(q)$, so $\xi/q \to 0$; no macroscopic frequency
+  selection occurs in the pipeline.
+- **Truncation status (proved)**: the three-coordinate array `pi_c` records projections onto the first
+  three selected Gram–Schmidt vectors only, a number fixed in advance by the pipeline constant
+  `HEFF_DIM = 3`; no quantity computed from it can measure the rank of the admissible sector or exclude
+  further directions.
+- **Coercivity ruled out at the $q^{-1}$ scale (proved)**: on normalised Fourier modes the admissibility
+  form satisfies $\mathcal{E}_q(e_\xi, e_\xi) \le 16\,a_{\max}\,q^{-2}$, so no uniform bound
+  $\mathcal{E}_q(f,f) \ge c\,q^{-1}\|f\|^2$ can hold.
+- **Disposition of [H-E1] and [C]**: the canonical filtration of the admissible fibre is the growing toric
+  Fourier window $\Omega_n$ of dimension $\min(2n+1, q)$, on which the published admissibility form
+  converges to the zero form and has zero-form Mosco limit (Q5a).
+  The original hypotheses are not closed by a finite-rank route.
 
 ## Main Results
 
-### 1. Atomic Fourier structure
-
-Each admissible fingerprint vector is concentrated on a single frequency:
-
-- empirical concentration: $R_{99}$<sub>%</sub> = 1
-- no dispersion across modes
-
-This implies:
-
-- exact diagonalisation of the admissibility form
-- absence of hidden mixing effects
-
-### 2. Three-mode structure per conjugate pair
-
-For each pair $\{c, q-c\}$:
-
-- admissible subspace:
-  $\mathrm{span}\{ e_0, e_{\xi_c}, e_{\xi_c}^\ast \}$
-- dimension:
-  $\dim H_{\text{eff}} = 3$
-
-This matches the structural result:
-
-- $\Sigma_c(n_3) = 3$ (O23)
-- rank $r_{\mathrm{eff}} = 3$ (O28)
-
-### 3. Closure of analytical hypotheses
-
-The atomic structure implies:
-
-- **[H-E1] (Poincaré inequality)**  
-  → holds automatically on each frequency block
-
-- **[C] (spectral tightening)**  
-  → follows from exact mode separation
-
-Thus:
-
-- Mosco convergence becomes structurally controlled
-- no functional-analytic workaround (e.g. Nash) is needed
-
-### 4. Structural interpretation
-
-Admissibility does not produce a diffuse spectrum but a **minimal discrete support**:
-
-- one neutral mode
-- one conjugate pair of oscillatory modes
-
-This defines the admissible sector as a **minimal coherent triplet**, not a continuum.
+| Result | Status |
+|---|---|
+| Fingerprints and selected GS vectors are pure Fourier modes | Proved |
+| Realised pre-saturation frequencies are $o(q)$ | Proved |
+| Rank is not measurable from the three-coordinate arrays | Proved |
+| $q^{-1}$ coercivity ([H-E1] as scaled bound) | Ruled out; form is $O(q^{-2})$ on normalised modes |
+| Mosco tightness towards a non-trivial limit ([C]) | Superseded: zero-form Mosco limit on the canonical filtration (Q5a) |
+| Strong convergence of rescaled generators ([H2]) | Open |
 
 ## Context in the Programme
 
-Q5a establishes convergence of admissibility forms to a continuum operator:
+- **Q5a** identifies the canonical filtration exactly: $\Omega_n = \mathrm{span}\{e_b : |b| \le n\}$,
+  $\dim \Omega_n = \min(2n+1, q)$, with zero-form limit of the published admissibility form.
+  The analytic continuum programme is to be pursued on that filtration, not through a fixed finite rank.
+- **O23** establishes the threefold dimension of the neutral sector of a supplied spinor carrier; the
+  threshold $\Sigma_c(n_3) = 3$ is a supplied selection rule, not a derived constant.
+  The pipeline constant `HEFF_DIM = 3` implements that selection rule and is a modelling choice.
 
-- Hilbert limit $\mathbb{C}_q \to L^2(\mathbb{R})$
-- Mosco convergence of $\mathcal{E}_q \to \mathcal{E}$
+## Open Items
 
-Q5a-O2 strengthens this by proving:
+1. A reproducible support-size measurement on the full stored basis, with a preregistered criterion
+   (the archived diagnostics are not reproducible from this repository and include a delocalised case,
+   $q = 61$, pair $c = 2$).
+2. A rank-measurement protocol that does not fix the target dimension in advance.
+3. Hypothesis [H2] (strong convergence of the rescaled generators).
 
-- the admissible sector is already **fully resolved spectrally**
-- no hidden degrees of freedom remain at the discrete level
+## Repository Structure
 
-This aligns with:
+```text
+q5a-o2/
+├── out/      # Compiled PDF (generated by compile.sh, git-ignored)
+├── tex/      # LaTeX sources
+└── README.md
+```
 
-- O23: quaternionic minimality → 3 directions
-- O28: effective dimension $r_{\mathrm{eff}} = 3$
-- Q7: identification $H_{\text{eff}} \simeq \mathrm{Sym}^2(V_\rho)$
+## Citation
 
-## Conceptual Implications
+If you reference this work, please cite via the Zenodo concept DOI:
 
-- **Admissibility = spectral selection, not diffusion**
-- **Emergence is low-rank, not high-dimensional**
-- **Continuum limit acts on already minimal structures**
+J. Beau,
+*Fourier Structure of the Pre-Saturation Admissible Pipeline: What the Three-Coordinate Projection Does and
+Does Not Measure*, Zenodo, 2026.
+[doi:10.5281/zenodo.19915951](https://doi.org/10.5281/zenodo.19915951)
 
-This supports the core principle:
+## Acknowledgements
 
-> Observable structure lives in $\mathrm{Im}\,\Pi$, not in the full configuration space.
-
-## Numerical Evidence
-
-- primes tested: $q = 29, 61, 101, 151$
-- all conjugate pairs:
-    - exact single-frequency dominance
-    - no rank inflation
-    - strict monotonicity of admissible projections
+Portions of the derivations, conceptual synthesis, and editorial refinement benefited from iterative
+interactions with large language models used as analytical assistants.
+All theoretical results, computations, and interpretations remain the sole responsibility of the author.

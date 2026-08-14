@@ -39,33 +39,44 @@
 
 \begin{document}
 
-  \title{Spectral Atomicity of the Admissible Sector:\\
-  Scaled Coercivity and Mosco Compactness without Nash Inequalities}
+  \title{Fourier Structure of the Pre-Saturation Admissible Pipeline:\\
+  What the Three-Coordinate Projection Does and Does Not Measure}
   \author{J\'er\^ome Beau}
   \date{2026}
   \maketitle
 
   \begin{abstract}
-    We resolve the two remaining open problems of~\cite{Beau2026q5a}:
-    the uniform coercivity hypothesis~[H-$\mathcal{E}$1] and the Mosco
-    tightness conjecture~[C].
-    We prove that the admissible sector $\ran(\Pi_q)$ is
-    \emph{spectrally atomic}: it is spanned by three pure Fourier modes per
-    conjugate pair, with macroscopic frequencies $\xi_c^{(q)}/q \to \omegac
-    \neq 0$, yielding an intrinsic finite-dimensional spectral structure
-    independent of $q$.
-    From this structure, coercivity at the optimal diffusive scale follows:
-    $\mathcal{E}_q(f,f) \geq \alpha q^{-1}\|f\|^2$ with $\alpha > 0$
-    independent of $q$, and Mosco compactness follows from
-    Bolzano--Weierstrass in $\C^2$, without any Nash or Rellich inequality.
-    These results close the Q5a programme and replace
-    hypotheses~[H-$\mathcal{E}$1] and~[C] of~\cite{Beau2026q5a} with
-    unconditional theorems.
+    The numerical pipeline of the spectral admissibility programme stores, for each
+    conjugate Weil pair $(c, q-c)$, two distinct objects: a full Gram--Schmidt basis of
+    $\C^q$ reaching rank $q$ at saturation, and a three-coordinate array of projections
+    onto the first three selected basis vectors.
+    This paper establishes the exact Fourier structure of the pre-saturation pipeline and
+    the epistemic status of the three-coordinate reduction.
+    The positive results are analytic: every BFS fingerprint evaluated at the uniform
+    initial vector is a pure Fourier mode, with frequency given by the O12 displacement
+    formula, and the Gram--Schmidt procedure preserves this purity, so every selected
+    basis vector of the pre-saturation window is itself a pure Fourier mode.
+    In the pre-saturation regime $n_*(q) = o(q)$ the realised frequencies satisfy
+    $|\xi| \le c_{\max} n_*(q) = o(q)$: the admissible frequencies are asymptotically
+    small relative to $q$.
+    The delimiting results follow.
+    First, the three-coordinate array is a truncation fixed by the pipeline constant
+    \texttt{HEFF\_DIM = 3}; every quantity computed from it lives, by construction, in the
+    span of the first three selected vectors, so no such computation can measure the rank
+    of the admissible sector or exclude further directions.
+    Second, a uniform coercivity bound $\Eq(f,f) \ge c\,q^{-1}\|f\|^2$ is ruled out: on
+    normalised Fourier modes the admissibility form is $O(q^{-2})$, consistent with the
+    exact identification of the canonical filtration as a growing Fourier window
+    $\Omega_n$ of dimension $\min(2n+1, q)$ whose published admissibility form converges
+    to the zero form~\cite{Beau2026q5a}.
+    The hypotheses [H-$\mathcal{E}$1] and [C] of the original Q5a framework are therefore
+    not closed by the finite-rank route; their disposition on the canonical filtration is
+    the one established in~\cite{Beau2026q5a}.
   \end{abstract}
 
   \paragraph{Keywords.}
-    spectral atomicity, admissible projection, Mosco convergence, Dirichlet forms, Heisenberg group, Weil
-    representation, spectral gap, Fourier modes, finite-dimensional reduction
+    Weil representation, Heisenberg group, Fourier modes, Gram--Schmidt pipeline,
+    admissible projection, finite-rank truncation, Dirichlet forms, canonical filtration
 
     \newpage
     \tableofcontents
@@ -74,65 +85,41 @@
   \section{Introduction}
   \label{sec:intro}
 
-
-  The paper~\cite{Beau2026q5a} (Q5a) establishes a conditional framework
-  for the large-$q$ limit of the admissible fibre $\ran(\Pi_q) \subset \Cq$.
-  Two analytic hypotheses remained open:
+  The paper~\cite{Beau2026q5a} (Q5a) studies the large-$q$ limit of the admissible
+  sector of the Weil representation of $\Heis(\Z/q\Z)$.
+  Its original framework isolated two analytic hypotheses:
   \begin{itemize}
     \item \textbf{[H-$\mathcal{E}$1]:} uniform Poincar\'e inequality for the
     admissible Dirichlet form $\Eq$;
     \item \textbf{[C]:} spectral tightness implying Mosco convergence
     $\Eq \xrightarrow{\mathrm{Mosco}} \mathcal{E}$.
   \end{itemize}
+  The current version of Q5a~\cite{Beau2026q5a} identifies the canonical filtration of
+  the admissible fibre exactly: with the pipeline's uniform initial vector, the stage
+  $\Omega_n$ is the toric Fourier window
+  $\mathrm{span}\{e_b : |b| \le n\}$, of dimension $\min(2n+1, q)$, and the published
+  admissibility form converges to the zero form on this filtration, uniformly on
+  norm-bounded subsets; its Mosco limit is the zero form.
 
-  The approach planned in~\cite{Beau2026q5a} was analytic: Nash
-  inequalities for filtered Heisenberg graphs, discrete Rellich, and
-  $\ell^1$ control.
-  The present paper identifies a deeper structure that makes this
-  machinery unnecessary.
-
-  \paragraph{Main discovery.}
-    The admissible projection $\Pi_q$, properly identified via its
-    $\mathcal{H}_{\mathrm eff}$-projection coordinates (the \texttt{pi\_c}
-    arrays), restricts each conjugate pair $(c, q-c)$ to a
-    three-dimensional subspace spanned by exactly three pure Fourier modes:
-    \[
-      \ran(\Pi_q^{(c)}) = \mathrm{span}\{\exi{0},\, \exi{\xic},\,
-      \exi{q-\xic}\},
-      \qquad \frac{\xic}{q} \to \omegac \in (0,\tfrac{1}{2}).
-    \]
-    This spectral atomicity (Proposition~\ref{prop:atomicity}) is confirmed
-    numerically at machine precision across $q \in \{29, 61, 101, 151\}$
-    and established analytically from the BFS pre-saturation geometry and
-    the Born--Infeld parity involution $c \leftrightarrow q-c$.
-    In particular, admissibility acts as a \emph{spectral selector},
-    reducing the full $q$-dimensional Fourier spectrum to a finite set of
-    spectral atoms, yielding an intrinsic finite-dimensional spectral structure
-    for the admissible sector that is independent of $q$.
-
-  \paragraph{Consequences.}
-    Scaled coercivity (Theorem~\ref{thm:coercivity}) follows immediately:
-    the non-constant admissible modes are locked at frequency $\omegac \neq 0$,
-    giving a uniform lower bound $\Eq(f,f) \geq \alpha q^{-1}\|f\|^2$ with
-    $\alpha = 4\,a_{\min}\sin^2(\pi\omega_{\min}) > 0$ independent of $q$.
-    Since the Dirichlet form sums over generators, a lower bound from the single
-    generator $X$ suffices.
-    Mosco compactness (Theorem~\ref{thm:mosco}) follows from
-    Bolzano--Weierstrass in $\C^2$ (after removal of the constant mode):
-    unit normalisation of $f_q$ bounds the two non-trivial coefficients,
-    and frequency convergence $\xic/q \to \omegac$ gives strong $L^2$ convergence.
+  The present paper addresses the complementary, pipeline-level questions: what exactly
+  the numerical objects of the O-series pipeline~\cite{Beau2026a29} measure in the
+  pre-saturation regime, and which analytic conclusions can and cannot be drawn from
+  them.
+  The positive part is an exact Fourier description of the pre-saturation pipeline.
+  The delimiting part establishes that the widely used three-coordinate reduction is a
+  truncation whose outputs cannot certify the rank of the admissible sector, and that the
+  scaled coercivity bound conjectured in the original framework is ruled out on
+  normalised modes.
 
   \paragraph{Organisation.}
-    Section~\ref{sec:setup} recalls the setup and distinguishes the two
-    projection objects present in the numerical pipeline.
-    Section~\ref{sec:mean-zero} establishes the mean-zero property and
-    reformulates [H-$\mathcal{E}$1].
-    Section~\ref{sec:atomicity} states and proves spectral atomicity.
-    Section~\ref{sec:freq-convergence} establishes macroscopic frequency
-    convergence.
-    Section~\ref{sec:coercivity} proves uniform coercivity.
-    Section~\ref{sec:mosco} proves Mosco compactness.
-    Section~\ref{sec:update} records the updated status of Q5a.
+    Section~\ref{sec:setup} recalls the setup and distinguishes the two projection
+    objects present in the numerical pipeline.
+    Section~\ref{sec:purity} proves the pure-mode structure of the pre-saturation
+    pipeline and the asymptotic smallness of the realised frequencies.
+    Section~\ref{sec:truncation} establishes the truncation status of the
+    three-coordinate reduction.
+    Section~\ref{sec:coercivity} rules out the $q^{-1}$ coercivity scale.
+    Section~\ref{sec:update} records the resulting status of the Q5a hypotheses.
 
   \section{Setup and two projection objects}
   \label{sec:setup}
@@ -142,11 +129,13 @@
     Let $q$ be a prime, $G_q = \Heis(\Z/q\Z)$ with generators
     $S_q = \{X^{\pm 1}, Y^{\pm 1}\}$, and $\rho_c$ the $q$-dimensional Weil
     representation of frequency $c \in (\Z/q\Z)^\times$.
-    The admissible Dirichlet form on $\ran(\Pi_q) \subset \Cq$ is
+    The admissible Dirichlet form on the admissible sector of $\Cq$ is
     \[
       \Eq(f,f) = q^{-2}\sum_{s \in S_q} a_q(s)\,\|\rho_q(s)f - f\|^2_{\Cq},
     \]
     with admissibility weights $a_q(s) > 0$ satisfying~[H-$w$]~\cite{Beau2026w1}.
+    Throughout, $\exi{\xi}(k) = q^{-1/2} e^{2\pi i \xi k/q}$ denotes the normalised
+    Fourier mode, $\|\exi{\xi}\|_{\Cq} = 1$.
 
   \subsection{Two projection objects}
     \label{subsec:two-projections}
@@ -158,338 +147,197 @@
       \item[\texttt{basis\_c[$p$]}] A unitary $(q \times q)$ matrix whose rows
       form a Gram--Schmidt orthonormal basis of $\C^q$ obtained by running
       BFS exploration up to saturation (99\% of $G_q$).
-      This matrix spans all of $\C^q$ at saturation and is \emph{not} the
-      theoretical $\Pi_q$.
+      This matrix spans all of $\C^q$ at saturation.
 
       \item[\texttt{pi\_c[$p$, $s$]}] An $(N_s \times 3)$ complex matrix of
-      $\mathcal{H}_{\mathrm eff}$-projection coordinates: each row gives the
+      projection coordinates: each row gives the
       inner products $\langle \phi_j, v_i\rangle$ for $j = 0,1,2$, where
-      $\phi_j$ are the first three GS basis vectors (the admissible
-      directions) and $v_i$ runs over BFS fingerprints in shell $s$ of the
-      fitting window $[n_0, n_1]$.
+      $\phi_j$ are the first three GS basis vectors and $v_i$ runs over BFS
+      fingerprints in shell $s$ of the fitting window $[n_0, n_1]$.
+      The number of retained directions is fixed by the pipeline constant
+      \texttt{HEFF\_DIM = 3} before any data are seen.
     \end{description}
 
-    \begin{remark}[Identification of $\Pi_q$]
-The theoretical admissible projection $\Pi_q$ is identified with the
-rank-3 projection onto $\mathrm{span}\{\phi_0, \phi_1, \phi_2\}$ via
-\texttt{pi\_c}, not via the full \texttt{basis\_c}.
-All spectral results in this paper concern $\Pi_q$ in this sense.
+    \begin{remark}[No canonical identification of $\Piq$ with the truncation]
+      \label{rem:no-identification}
+      The three-coordinate object identifies a rank-3 projection onto
+      $\mathrm{span}\{\phi_0, \phi_1, \phi_2\}$ by \emph{convention}: the constant
+      \texttt{HEFF\_DIM = 3} selects the number of directions in advance.
+      No theorem of the programme identifies this truncation with a canonical admissible
+      projection.
+      The threshold $\Sigma_c(n_3) = 3$ of the admissibility series is itself a supplied
+      selection rule, not a derived constant~\cite{Beau2026a27}, and the canonical
+      filtration stage of the fibre is the growing Fourier window of
+      dimension $\min(2n+1,q)$ identified in~\cite{Beau2026q5a}, not a fixed rank-3
+      subspace.
     \end{remark}
 
-  \section{Mean-zero sector and reformulation of [H-\texorpdfstring{$\mathcal{E}$}{E}1]}
-  \label{sec:mean-zero}
+  \section{Pure Fourier modes in the pre-saturation pipeline}
+  \label{sec:purity}
 
-
-  \begin{lemma}[Mean-zero property]
-    \label{lem:mean-zero}
-    For every $f \in \ran(\Pi_q)$, the Fourier coefficient $\hat{f}(0) = 0$.
-  \end{lemma}
+  \begin{proposition}[BFS fingerprints are pure modes]
+    \label{prop:fingerprint-purity}
+    Each three-step BFS fingerprint $v_{g,\mathbf{c}}$ evaluated at the uniform initial
+    vector $\psi_0 = \exi{0}$ satisfies
+    \[
+      v_{g,\mathbf{c}}(k) \propto e^{2\pi i \xi k/q},
+      \qquad \xi = (c_1 b_1 + c_2 b_2 + c_3 b_3) \bmod q,
+    \]
+    where $b_j$ is the $Y$-displacement of the intermediate group element in block $j$.
+  \end{proposition}
 
   \begin{proof}
-    The Weil representation $\rho_c$ ($c \neq 0$) is irreducible of central
-    character $e^{2\pi ic/q} \neq 1$.
-    The constant function $\mathbf{1} \in \Cq$ spans the trivial
-    representation, which is orthogonal to every non-trivial irreducible.
-    Hence $\langle \mathbf{1}, f\rangle = \hat{f}(0) = 0$ for all
-    $f \in \ran(\Pi_q^{(c)})$.
+    The Weil action of the generator $X$ on the uniform vector is
+    $(\rho_c(X^n)\psi_0)(k) = e^{2\pi i c n k/q}\,\psi_0(k)$, a multiplication by a pure
+    phase linear in $k$; the $Y$-action permutes coordinates and preserves this form up
+    to a global phase.
+    Composing the three blocks multiplies the phases, so the fingerprint is proportional
+    to $e^{2\pi i \xi k /q}$ with $\xi$ the stated displacement combination.
+    This is the O12 frequency formula~\cite{Beau2026a16}.
   \end{proof}
 
-  \begin{remark}
-    Lemma~\ref{lem:mean-zero} implies that the Poincar\'e inequality for
-    $\ran(\Pi_q)$ reduces to a \emph{spectral gap} estimate:
-    $\Eq(f,f) \geq \alpha\|f\|^2_{\Cq}$ without mean subtraction.
-    This is the correct formulation of [H-$\mathcal{E}$1] in the admissible
-    setting.
-  \end{remark}
-
-  \section{Spectral atomicity of the admissible sector}
-  \label{sec:atomicity}
-
-
-  \begin{proposition}[Admissible spectral atomicity]
-    \label{prop:atomicity}
-    For each prime $q$ and each conjugate pair $(c, q-c)$, the three
-    admissible directions $\phi_0, \phi_1, \phi_2 \in \ran(\Pi_q^{(c)})$
-    are pure Fourier modes:
-    \[
-      \phi_0 = e_0, \qquad \phi_1 = e_{\xic}, \qquad \phi_2 = e_{q-\xic},
-    \]
-    where $e_\xi(k) = q^{-1/2} e^{2\pi i \xi k/q}$ and $\xic \in
-    \{1, \ldots, \lfloor q/2\rfloor\}$.
-    Equivalently, $\ran(\Pi_q^{(c)}) = \mathrm{span}\{e_0, e_{\xic},
-    e_{q-\xic}\}$.
+  \begin{proposition}[Gram--Schmidt preserves purity]
+    \label{prop:gs-purity}
+    In the pre-saturation window $[n_0, n_1]$ with $n_*(q) = o(q)$, the Gram--Schmidt
+    basis vectors extracted from the BFS fingerprints are pure Fourier modes.
+    In particular, the first three selected vectors $\phi_0, \phi_1, \phi_2$ are pure
+    Fourier modes.
   \end{proposition}
 
-  \begin{proof}[Proof sketch]
-The result follows analytically from the BFS pre-saturation structure
-(Steps~1--3 below) and is independently confirmed numerically at machine
-precision (Table~\ref{tab:atomicity} and Table~\ref{tab:puremode}).
-
-\textit{Step 1 (BFS fingerprints are pure modes).}
-Each three-step BFS fingerprint $v_{g,\mathbf{c}} = \rho_{c_1}(g_1)
-\otimes \rho_{c_2}(g_2) \otimes \rho_{c_3}(g_3)$ evaluated at the
-vacuum $\psi_0 = e_0$ satisfies
-\[
-  v_{g,\mathbf{c}}(k) \propto e^{2\pi i \xi k/q},
-  \quad \xi = (c_1 b_1 + c_2 b_2 + c_3 b_3) \bmod q,
-\]
-where $b_j$ is the $Y$-component of the intermediate group element.
-After identification of the tensor product with $\C^q$ via the Weil
-representation, this yields a scalar Fourier mode.
-This follows directly from the Weil action
-$(\rho_c(X^n)\psi_0)(k) = e^{2\pi i c n k/q}$ and is verified
-numerically to machine precision (Table~\ref{tab:puremode}).
-
-\textit{Step 2 (GS basis inherits purity).}
-In the pre-saturation window $[n_0, n_1]$ with $n_*(q) = o(q)$, the
-BFS fingerprints visiting shell $s$ generate a set of pure modes at
-frequencies $\xi \in \mathcal{F}_s(c, \mathbf{c})$.
-Since Fourier modes at distinct frequencies are orthogonal, the
-Gram--Schmidt procedure does not mix frequencies and preserves
-the pure-mode structure.
-The first three GS-orthogonal vectors $\phi_0, \phi_1, \phi_2$
-extracted from this set are therefore themselves pure modes.
-
-\textit{Step 3 (three directions only).}
-The constraint $\Sigma_c(n_3) = 3$ established in~\cite{Beau2026a27}
-limits the admissible rank to exactly 3 per pair.
-Since each admissible direction is a pure Fourier mode (Step~2), the rank
-constraint implies that exactly three distinct frequencies can appear.
-Combined with the vacuum direction $\xi=0$ (the first GS vector) and the
-BI parity involution $c \leftrightarrow q-c$ which forces $e_\xi$ and
-$e_{q-\xi}$ to enter together, this gives exactly the triple
-$\{e_0, e_{\xic}, e_{q-\xic}\}$.
-
-\textit{Numerical confirmation.}
-Table~\ref{tab:atomicity} reports the support size $K_q = \max_j
-|\supp(\hat{\phi}_j)|$ for $q \in \{29, 61, 101, 151\}$, computed
-by the confinement test of Appendix~\ref{app:numerics}.
-In all cases $K_q = 1$, confirming spectral atomicity at
-$|\hat{\phi}_j(\xi)|^2 / (1/q^2) = 1.000$ at the unique supported
-frequency and $< 10^{-25}$ elsewhere.
+  \begin{proof}
+    By Proposition~\ref{prop:fingerprint-purity}, the fingerprints visiting the window
+    are pure modes at frequencies in a finite set.
+    Fourier modes at distinct frequencies are orthogonal in $\Cq$, so the Gram--Schmidt
+    procedure either discards a fingerprint (repeated frequency) or normalises it
+    (new frequency); it never mixes distinct frequencies.
+    Every selected basis vector is therefore a single normalised mode.
   \end{proof}
 
-  \begin{table}[h]
-    \centering
-    \small
-    \renewcommand{\arraystretch}{1.3}
-    \begin{tabularx}{0.7\textwidth}{@{}rrrX@{}}
-\toprule
-$q$ & $K_q$ & $\max|\hat\phi_j|^2 \cdot q^2$ & Verdict \\
-\midrule
-29  & 1 & 1.000 & pure mode \\
-61  & 1 & 1.000 & pure mode \\
-101 & 1 & 1.000 & pure mode \\
-151 & 1 & 1.000 & pure mode \\
-\bottomrule
-    \end{tabularx}
-    \caption{Support size $K_q$ and normalised peak spectral mass for the
-    admissible directions $\phi_j$ across four primes.
-      $K_q = 1$ at machine precision in all cases.}
-    \label{tab:atomicity}
-  \end{table}
-
-  \begin{table}[h]
-    \centering
-    \small
-    \renewcommand{\arraystretch}{1.3}
-    \begin{tabularx}{0.85\textwidth}{@{}rrrrrX@{}}
-\toprule
-$q$ & pair & $j$ & $\xi_{\mathrm peak}$ &
-$|\hat{\phi}_j(\xi_{\mathrm peak})|^2 \cdot q^2$ & second-largest mass \\
-\midrule
-29  & 0 & 0 & 0  & 1.000 & $< 10^{-30}$ \\
-29  & 0 & 1 & 11 & 1.000 & $< 10^{-30}$ \\
-61  & 0 & 1 & 22 & 1.000 & $< 10^{-30}$ \\
-101 & 0 & 1 & 37 & 1.000 & $< 10^{-30}$ \\
-151 & 0 & 1 & 55 & 1.000 & $< 10^{-30}$ \\
-\bottomrule
-    \end{tabularx}
-    \caption{Pure-mode verification for representative admissible directions.
-    The normalised spectral mass at the peak frequency equals~$1.000$
-      (i.e.\ $|\langle\phi_j, e_{\xi}\rangle|^2 = 1/q^2$ exactly) and is
-      below $10^{-30}$ at all other frequencies, confirming pure-mode
-      structure to machine precision across all tested primes.}
-    \label{tab:puremode}
-  \end{table}
-
-  \section{Macroscopic frequency convergence}
-  \label{sec:freq-convergence}
-
-
-  \begin{proposition}[Macroscopic frequency convergence]
-    \label{prop:freq-conv}
-    For each pair index with character $c$, the admissible frequency
-    satisfies
-    \[
-      \frac{\xic}{q} \longrightarrow \omegac \in (0,\tfrac{1}{2})
-      \quad \text{as } q \to \infty,
-    \]
-    where $\omegac$ depends on the block parameters $(c_1, c_2, c_3)$ of
-    the canonical BFS calibration.
-    The coefficients $(c_1, c_2, c_3)$ are fixed by the canonical BFS
-    calibration procedure and do not depend on $q$; hence $\omegac$ is
-    independent of $q$.
+  \begin{proposition}[Asymptotic smallness of the realised frequencies]
+    \label{prop:small-frequencies}
+    In the pre-saturation regime $n \le n_*(q) = o(q)$, every realised frequency
+    satisfies $|\xi| \le c_{\max}\, n_*(q) = o(q)$, where $c_{\max}$ bounds the block
+    parameters.
+    Consequently $\xi/q \to 0$ as $q \to \infty$ along any family of pre-saturation
+    fingerprints with bounded block parameters.
   \end{proposition}
 
-  \begin{proof}[Proof sketch]
-The frequency $\xic = (c_1 b_1^* + c_2 b_2^* + c_3 b_3^*) \bmod q$,
-where $b_j^*$ is the modal $Y$-displacement in BFS shell $n_j \leq
-n_*(q)$.
-In the pre-saturation regime $n \leq n_*(q) = o(q)$, the BFS walk on
-$\Heis(\Z/q\Z)$ is indistinguishable from the walk on $\Heis(\Z)$
-(no wrapping), so $b_j^*/q \to \beta_j$ for fixed $\beta_j$ determined
-by the Bass--Guivarc'h polynomial growth geometry~\cite{Beau2026a29}.
-Hence $\xic/q \to c_1\beta_1 + c_2\beta_2 + c_3\beta_3 =: \omegac$.
-
-Numerical values for pair $c=1$ across four primes:
-\begin{center}
-  \small
-  \begin{tabular}{rrrr}
-    \toprule
-    $q$ & $\xic$ & $\xic/q$ & $|\xic/q - \omega_1|$ \\
-    \midrule
-    29  & 11     & 0.3793   & 0.0003                \\
-    61  & 22     & 0.3607   & 0.0003                \\
-    101 & 37     & 0.3663   & 0.0003                \\
-    151 & 55     & 0.3642   & 0.0003                \\
-    \bottomrule
-  \end{tabular}
-\end{center}
-The residual $|\xic/q - 0.364| < 5 \times 10^{-3}$ for all tested
-primes, confirming convergence to $\omega_1 \approx 0.364$.
+  \begin{proof}
+    The $Y$-displacements accessible within $n$ BFS steps satisfy $|b_j| \le n \le
+    n_*(q)$, and $\xi$ is a fixed integer combination of the $b_j$ with coefficients
+    bounded by $c_{\max}$.
+    Since $n_*(q) = o(q)$, no modular wrapping occurs and the stated bound follows.
   \end{proof}
 
-  \begin{remark}[Stability is structural, not numerical]
-The convergence $\xic/q \to \omegac$ is not a numerical coincidence.
-It follows from three structural facts: (i)~the Weil action diagonalises
-$X$ in the Fourier basis; (ii)~the BFS pre-saturation constraint
-$n_*(q) = o(q)$ prevents wrapping in $\Z/q\Z$; (iii)~the
-Born--Infeld parity involution $c \leftrightarrow q-c$ forces the pair
-$(\xic, q-\xic)$ as the two non-zero admissible frequencies.
-These three ingredients are independent of $q$.
+  \begin{remark}[No macroscopic frequency selection]
+    \label{rem:no-macroscopic}
+    Proposition~\ref{prop:small-frequencies} rules out, within the pre-saturation
+    pipeline, any convergence of realised frequencies to a fixed macroscopic value
+    $\omega \in (0, \tfrac12)$: the ratios $\xi/q$ tend to zero.
+    A macroscopic frequency could only be produced by fingerprints outside the
+    pre-saturation regime or by block parameters growing with $q$, neither of which is
+    part of the pipeline's calibration.
   \end{remark}
 
-  \section{Uniform coercivity}
+  \begin{remark}[Numerical claims]
+    \label{rem:numerics}
+    This paper makes no numerical support-size claims.
+    The archived pipeline diagnostics for support sizes are not reproducible from the
+    present repository (the required checkpoints are not versioned here), and they
+    include a delocalised case (prime $q = 61$, pair $c = 2$) that is incompatible with a
+    uniform single-mode support table.
+    A reproducible support-size measurement, run on the full stored basis with a
+    preregistered criterion, is left to future work.
+  \end{remark}
+
+  \section{The three-coordinate reduction is a truncation}
+  \label{sec:truncation}
+
+  \begin{proposition}[Rank cannot be measured from the truncated coordinates]
+    \label{prop:truncation}
+    Every quantity computed from the \texttt{pi\_c} arrays is a function of the
+    orthogonal projections of the fingerprints onto
+    $\mathrm{span}\{\phi_0, \phi_1, \phi_2\}$.
+    In particular, any ``rank'' read from these arrays equals the number of retained
+    coordinates fixed by \texttt{HEFF\_DIM} and carries no information about the
+    dimension of the admissible sector beyond the first three selected directions.
+  \end{proposition}
+
+  \begin{proof}
+    Immediate from the definition of the stored object: each row of \texttt{pi\_c} lists
+    the inner products with the first three selected basis vectors only.
+    Components of the fingerprints orthogonal to
+    $\mathrm{span}\{\phi_0,\phi_1,\phi_2\}$ are not recorded, so no functional of
+    \texttt{pi\_c} can detect them.
+  \end{proof}
+
+  \begin{remark}[What a rank measurement would require]
+    \label{rem:rank-protocol}
+    A measurement of the admissible rank must operate on the full stored basis
+    (\texttt{basis\_c}), which reaches rank $q$ at saturation, with a preregistered,
+    scale-stable rank criterion that does not fix the target dimension in advance.
+    The exact filtration result of~\cite{Beau2026q5a} --- canonical stages of dimension
+    $\min(2n+1, q)$ --- shows that the admissible carrier grows with the window and is
+    not a fixed rank-3 subspace; any finite-rank reduction is an additional modelling
+    step whose validity must be established separately.
+  \end{remark}
+
+  \section{The $q^{-1}$ coercivity scale is ruled out}
   \label{sec:coercivity}
 
-
-  \begin{theorem}[Scaled coercivity on the admissible sector, {[H-$\mathcal{E}$1']}]
-    \label{thm:coercivity}
-    Under hypothesis~\textup{[H-$w$]}~\cite{Beau2026w1} and admissible
-    spectral atomicity (Proposition~\ref{prop:atomicity}), there exists a
-    constant $c > 0$, independent of $q$, such that for every
-    $f \in \ran(\Pi_q)$,
+  \begin{proposition}[Upper bound on the form at the $q^{-2}$ scale]
+    \label{prop:no-coercivity}
+    For every normalised Fourier mode $\exi{\xi} \in \Cq$,
     \[
-      \Eq(f,f) \geq c\,q^{-1}\,\|f\|^2_{\Cq}.
+      \Eq(\exi{\xi}, \exi{\xi})
+      \;=\; q^{-2} \sum_{s \in S_q} a_q(s)\, \|\rho_q(s)\exi{\xi} - \exi{\xi}\|^2_{\Cq}
+      \;\le\; 16\, a_{\max}\, q^{-2},
     \]
-    This scaling is optimal under the diffusive normalisation of $\Eq$.
-    The constant is explicit:
-    $c = 4\,a_{\min}\sin^2(\pi\,\omega_{\min}) > 0$,
-    where $a_{\min} = \inf_q\inf_s a_q(s) > 0$~\cite{Beau2026w1} and
-    $\omega_{\min} = \min_c \omegac > 0$.
-  \end{theorem}
+    where $a_{\max} = \sup_q \sup_s a_q(s) < \infty$ under~[H-$w$]~\cite{Beau2026w1}.
+    Consequently there is no constant $c > 0$ independent of $q$ with
+    $\Eq(f,f) \ge c\, q^{-1} \|f\|^2_{\Cq}$ on the admissible sector: the scaled
+    coercivity bound fails on every normalised mode as soon as $q > 16\,a_{\max}/c$.
+  \end{proposition}
 
   \begin{proof}
-    Write $f = \alpha_0 e_0 + \alpha_1 e_{\xic} + \alpha_2 e_{q-\xic}$
-    with $\alpha_j \in \C$.
-    By Lemma~\ref{lem:mean-zero}, $\hat{f}(0) = \alpha_0 = 0$.
-    Hence $f = \alpha_1 e_{\xic} + \alpha_2 e_{q-\xic}$.
-
-    Since the Dirichlet form is a sum over all generators, a lower bound on any
-    single generator suffices.
-    The generator $X$ acts diagonally in the Fourier basis:
-    $(\rho_q(X)e_\xi)(k) = e^{2\pi i\xi/q}e_\xi(k)$, so
-    $\|(\rho_q(X)-I)e_\xi\|^2_{\Cq} = |e^{2\pi i\xi/q}-1|^2\cdot q
-    = 4\sin^2(\pi\xi/q)\cdot q$.
-    Combining the $X$ and $X^{-1}$ contributions and using $\|f\|^2 =
-    |\alpha_1|^2 + |\alpha_2|^2$:
-    \begin{align*}
-      \Eq(f,f) &\geq q^{-2}\,a_{\min}
-      \bigl[\|(\rho_q(X)-I)f\|^2 + \|(\rho_q(X^{-1})-I)f\|^2\bigr]\\
-      &= q^{-2}\,a_{\min}\cdot 2\cdot
-      4\sin^2\!\bigl(\pi\xic/q\bigr)\cdot q\cdot(|\alpha_1|^2 + |\alpha_2|^2)\\
-      &= 8\,a_{\min}\sin^2\!\bigl(\pi\xic/q\bigr)\cdot q^{-1}
-      \cdot(|\alpha_1|^2 + |\alpha_2|^2).
-    \end{align*}
-    There exists $q_0$ such that for all $q \geq q_0$,
-    $\sin^2(\pi\xic/q) \geq \tfrac{1}{2}\sin^2(\pi\omegac)$ (by
-    Proposition~\ref{prop:freq-conv}), giving
-    $\Eq(f,f) \geq 4\,a_{\min}\sin^2(\pi\omegac)\cdot q^{-1}\cdot\|f\|^2_{\Cq}$.
-    Since the set of admissible pairs is finite for each $q$ and
-    $\omegac \to \omegac^* > 0$ for each pair
-    (Proposition~\ref{prop:freq-conv}), we may define
-    $\omega_{\min} := \inf_c \omegac^* > 0$, which gives the uniform constant
-    $c = 4\,a_{\min}\sin^2(\pi\omega_{\min}) > 0$ valid for all $q \geq q_0$.
-    This establishes~[H-$\mathcal{E}$1'] with optimal exponent $\beta = 1$.
+    The generators act on a normalised mode by a unitary that is either a pure phase
+    (diagonal action, $\|(\rho_q(X^{\pm 1}) - I)\exi{\xi}\|^2 =
+    |e^{\pm 2\pi i \xi/q} - 1|^2 = 4\sin^2(\pi\xi/q) \le 4$) or a coordinate
+    permutation composed with phases (again $\|(\rho_q(Y^{\pm 1}) - I)\exi{\xi}\|^2
+    \le 4$ by unitarity and the triangle inequality, since both vectors are unit).
+    Summing the four generator terms gives the stated bound with constant
+    $4 \times 4 = 16$.
+    For the failure of the $q^{-1}$ bound, take $f = \exi{\xi}$ for any realised
+    frequency: $\Eq(f,f) \le 16\,a_{\max}\,q^{-2} < c\,q^{-1} = c\,q^{-1}\|f\|^2$
+    for all $q > 16\,a_{\max}/c$.
   \end{proof}
 
-  \begin{remark}[Spectral gap versus normalisation]
-    \label{rem:normalization}
-    The underlying spectral gap of $\rho_q(X)$ restricted to $\ran(\Pi_q)$
-    is \emph{uniform}: $|e^{2\pi i\xic/q}-1|^2 \to 4\sin^2(\pi\omegac) > 0$.
-    The factor $q^{-1}$ in~[H-$\mathcal{E}$1'] reflects the diffusive
-    normalisation $\Eq \propto q^{-2}$ of~\cite{Beau2026q5a}, not a
-    weakness of the coercivity.
-    This shows that the spectral gap is intrinsically uniform,
-    while the $q^{-1}$ scaling is purely a normalisation effect.
-    This improves the original conjecture~[H-$\mathcal{E}$1] ($\beta = 4$)
-    to the optimal exponent $\beta = 1$.
+  \begin{remark}[Consistency with the zero-form limit]
+    \label{rem:zero-form}
+    Proposition~\ref{prop:no-coercivity} is the pipeline-level face of the exact result
+    of~\cite{Beau2026q5a}: on the canonical Fourier-window filtration the published
+    admissibility form converges to the zero form, uniformly on norm-bounded subsets,
+    and its Mosco limit is the zero form.
+    The $q^{-2}$ scale visible on normalised modes is the correct scale of the published
+    form; a uniform $q^{-1}$ lower bound is excluded.
   \end{remark}
 
-  \section{Mosco compactness}
-  \label{sec:mosco}
+  \begin{remark}[No compactness route through plane waves]
+    \label{rem:no-plane-waves}
+    An embedding of the finite modes $\exi{\xi}$ as plane waves
+    $e^{2\pi i \omega x}$ on the line cannot underlie a strong $L^2(\R)$ compactness
+    argument: plane waves are not elements of $L^2(\R)$.
+    Any continuum comparison must specify an isometric embedding with normalisable
+    images (for instance, windowed or weighted modes); the disposition of the continuum
+    limit on the canonical filtration is the one established in~\cite{Beau2026q5a}.
+  \end{remark}
 
-
-  \begin{theorem}[Mosco compactness on the admissible sector]
-    \label{thm:mosco}
-    Under~\textup{[H-$w$]}~\cite{Beau2026w1} and admissible spectral
-    atomicity (Proposition~\ref{prop:atomicity}), every normalised sequence
-    $\{f_q\}_{q}$ with $f_q \in \ran(\Pi_q)$, $\|f_q\|_{\Cq} = 1$, and
-    $\sup_q \Eq(f_q, f_q) < \infty$ contains a subsequence converging
-    strongly in $L^2(\R)$ under the inductive limit embedding
-    $\iota_q\colon \Cq \hookrightarrow L^2(\R)$.
-  \end{theorem}
-
-  \begin{proof}
-    \textit{Step 1 (Three-coordinate representation).}
-    By spectral atomicity, $f_q = \alpha_1^{(q)} e_{\xic} +
-    \alpha_2^{(q)} e_{q-\xic}$ (using $\alpha_0^{(q)} = 0$ from
-    Lemma~\ref{lem:mean-zero}).
-    Write $\mathbf{a}_q = (\alpha_1^{(q)}, \alpha_2^{(q)}) \in \C^2$.
-
-    \textit{Step 2 (Bounded coefficients).}
-    Since $\|f_q\|^2_{\Cq} = |\alpha_1^{(q)}|^2 + |\alpha_2^{(q)}|^2 = 1$,
-    the sequence $\{\mathbf{a}_q\}$ lies in the closed unit ball of $\C^2$.
-    By the Bolzano--Weierstrass theorem, there exists a subsequence
-    (still denoted $q$) with $\mathbf{a}_q \to \mathbf{a}^* =
-    (\alpha_1^*, \alpha_2^*) \in \C^2$.
-
-    \textit{Step 3 (Frequency convergence implies strong convergence).}
-    By Proposition~\ref{prop:freq-conv}, $\xic/q \to \omegac$ and
-    $(q-\xic)/q \to 1 - \omegac$.
-    Under the inductive limit embedding $\iota_q$ of~\cite{Beau2026q5a}
-    (canonical embedding of $\Cq$ into $L^2(\R)$ as band-limited plane waves),
-    $\iota_q(e_\xi)$ converges strongly in $L^2(\R)$ to $e^{2\pi i\omega\cdot}$
-    for $\omega = \lim_{q\to\infty} \xi^{(q)}/q$.
-    Hence $\iota_q(f_q) = \alpha_1^{(q)} \iota_q(e_{\xic}) +
-    \alpha_2^{(q)} \iota_q(e_{q-\xic})$ converges strongly in $\Lq$ to
-    $\alpha_1^* e^{2\pi i\omegac\cdot} + \alpha_2^* e^{-2\pi i\omegac\cdot}$.
-
-    \textit{Conclusion.}
-    Conjecture~[C] of~\cite{Beau2026q5a} holds: the admissible Dirichlet
-    forms are Mosco-tight.
-    This provides a direct geometric proof of compactness, bypassing all
-    functional inequality machinery and reducing compactness entirely to
-    finite-dimensional geometry.
-  \end{proof}
-
-  \section{Updated status of Q5a}
+  \section{Status of the Q5a hypotheses}
   \label{sec:update}
 
-
-  Table~\ref{tab:status} records the updated status of all hypotheses
-  and results of~\cite{Beau2026q5a} following the present paper.
+  Table~\ref{tab:status} records the status of the hypotheses of the original Q5a
+  framework in the light of the present results and of the exact filtration results
+  of~\cite{Beau2026q5a}.
 
   \begin{table}[h]
     \centering
@@ -499,113 +347,57 @@ These three ingredients are independent of $q$.
 \toprule
 Label & Content & Status & Source \\
 \midrule
-{[H-$\Pi$1]} & $\Pi_q$ orthogonal, commutes with $\hat{\sigma}$
-& Proved & \cite{Beau2026a16,Beau2026a22} \\
-{[H-$\Pi$2]} & Shell locality, $n_*(q)\to\infty$
-& Proved structurally & O-series \\
-{[H1]} & Weil-block-compatible embeddings
-& Proved on admissible sector; not needed in full generality
+{[H-$w$]} & Weights $a_q(s)\to A>0$
+& Proved & \cite{Beau2026w1} \\
+{[H-$\mathcal{E}$1]} & Uniform (scaled) coercivity of $\Eq$
+& Ruled out at the $q^{-1}$ scale (Prop.~\ref{prop:no-coercivity}); form is
+$O(q^{-2})$ on normalised modes, zero-form limit on the canonical filtration
+& This paper; \cite{Beau2026q5a} \\
+{[C]} & Mosco tightness towards a non-trivial limit form
+& Superseded: the Mosco limit of the published form on the canonical filtration is the
+zero form
 & \cite{Beau2026q5a} \\
 {[H2]} & Strong convergence of rescaled generators
 & Open & \cite{Beau2026q5a} \\
-{[H-$w$]} & Weights $a_q(s)\to A>0$
-& Proved & \cite{Beau2026w1} \\
-{[H-$\mathcal{E}$1']} & Scaled coercivity: $\Eq(f,f) \geq c q^{-1}\|f\|^2$ (optimal scaling)
-& \textbf{Proved} (Thm~\ref{thm:coercivity})
-& This paper \\
-{[C]} & Mosco tightness
-& \textbf{Proved} (Thm~\ref{thm:mosco})
-& This paper \\
 \midrule
-Prop. & Spectral atomicity
-& \textbf{New result} (Prop.~\ref{prop:atomicity})
+Prop. & Fingerprints and selected GS vectors are pure Fourier modes
+& Proved (Props.~\ref{prop:fingerprint-purity}, \ref{prop:gs-purity})
 & This paper \\
-Prop. & Freq.\ convergence $\xic/q\to\omegac$
-& \textbf{New result} (Prop.~\ref{prop:freq-conv})
+Prop. & Realised frequencies are $o(q)$
+& Proved (Prop.~\ref{prop:small-frequencies})
 & This paper \\
-T3 & $\Eq \xrightarrow{\mathrm{Mosco}} \mathcal{E}$, $L_\Pi$ self-adjoint
-& \textbf{Proved} conditionally on~[H2]
-& \cite{Beau2026q5a}, this paper \\
+Prop. & Rank is not measurable from the three-coordinate arrays
+& Proved (Prop.~\ref{prop:truncation})
+& This paper \\
 \bottomrule
     \end{tabularx}
-    \caption{Updated hypothesis and result status.}
+    \caption{Status of hypotheses and results.}
     \label{tab:status}
   \end{table}
 
   \section{Discussion and outlook}
   \label{sec:discussion}
 
-  The admissible projection $\Pi_q$ has an intrinsic finite-dimensional
-  spectral structure: it reduces the full $q$-dimensional Fourier spectrum
-  to a finite set of spectral atoms.
-  This is not a consequence of any ad hoc truncation but follows from
-  the interplay between the BFS pre-saturation geometry and the
-  Born--Infeld parity involution.
+  The pre-saturation pipeline has an exact and simple Fourier description: fingerprints
+  and selected Gram--Schmidt vectors are pure modes, at frequencies that are $o(q)$.
+  This structure is a property of the fingerprint construction and of Gram--Schmidt
+  orthogonality; it holds independently of any rank hypothesis.
 
-  This structural picture provides a conceptual simplification of the Q5a
-  programme.
-  The analytic approach based on Nash inequalities for filtered Heisenberg
-  graphs and discrete Rellich compactness can be entirely replaced by a
-  structural argument relying on spectral atomicity: coercivity reduces to a
-  spectral gap estimate at a fixed non-zero frequency, and compactness
-  reduces to Bolzano--Weierstrass in $\C^2$.
-  Both steps are direct consequences of the same underlying finite-dimensional
-  structure.
+  The three-coordinate reduction of the pipeline is a truncation.
+  Its outputs live in a subspace fixed in advance, so they can characterise the first
+  three selected directions but cannot measure the dimension of the admissible sector.
+  The canonical object behind the pipeline is the growing Fourier-window filtration
+  identified in~\cite{Beau2026q5a}, on which the published admissibility form has
+  zero-form Mosco limit; the analytic programme of the original Q5a framework is to be
+  pursued on that filtration, not through a fixed finite rank.
 
-  From a broader perspective, admissibility acts as a selection mechanism,
-  isolating a small number of macroscopic frequencies that remain stable
-  in the large-$q$ limit.
-  This identifies admissibility not as a constraint on amplitudes, but as a
-  structural mechanism selecting the relevant spectral degrees of freedom.
-  This suggests that the effective degrees of freedom of the admissible
-  sector are not distributed across the spectrum but concentrated on a
-  finite set of modes -- a rigidity property that may have further
-  consequences for the spectral programme.
-
-  The principal open problem is hypothesis~[H2] of~\cite{Beau2026q5a}:
-  strong convergence of the rescaled generators $q^{-1}\rho_q(X)$ and
-  $q^{-1}\rho_q(Y)$ to the standard position and momentum operators.
-  Spectral atomicity constrains the problem: convergence of the generators
-  needs only be verified on the three-dimensional admissible subspace, not
-  on all of $\Cq$.
-  Whether this dimensional reduction makes~[H2] accessible from the
-  results of this paper is left for future work.
-  This dimensional reduction suggests that the large-q limit of the admissible sector
-  is governed by an intrinsically finite-dimensional spectral dynamics.
-
-  \appendix
-
-  \section{Numerical confinement test}
-  \label{app:numerics}
-
-  The spectral atomicity claim $K_q = 1$ is verified by the following
-  numerical procedure, implemented in the companion script
-  \texttt{admissible\_fourier\_profile.py}.
-
-  For each prime $q$ and each non-empty conjugate pair $p$:
-  \begin{enumerate}
-    \item Reconstruct the block parameters $\mathbf{c} = (c_1, c_2, c_3)$
-    from the stored RNG seed (same chain as the O25
-    pipeline~\cite{Beau2026a29}).
-    \item For each fingerprint $v_i$ in the fitting window $[n_0, n_1]$,
-    compute the frequency $\xi_i = (c_1 b_1^i + c_2 b_2^i + c_3 b_3^i)
-    \bmod q$ analytically from the BFS path.
-    The computation is chunked in blocks of $C = 400$ elements to match
-    the storage ordering of \texttt{pi\_c}.
-    \item For each admissible direction $j = 0,1,2$, compute
-    $M_j(\xi) = \max_{\{i:\xi_i = \xi\}} |\mathrm{pi\_c}[i,j]|^2$.
-    \item A frequency $\xi$ is in $\supp(\hat{\phi}_j)$ iff
-    $M_j(\xi) > 0.5/q^2$.
-    The normalisation $1/q^2$ is the exact pure-mode mass (verified by
-    direct recomputation: $|{\langle \phi_j, e_\xi \rangle}|^2 = 1/q^2$
-    at the supported frequency).
-    \item $K_q = \max_j |\supp(\hat{\phi}_j)|$.
-  \end{enumerate}
-
-  Results: $K_q = 1$ for all $q \in \{29, 61, 101, 151\}$, with
-  $M_j(\xic)/q^{-2} = 1.000$ at machine precision and
-  $M_j(\xi)/q^{-2} < 10^{-25}$ at all other frequencies.
-
+  Three items are open.
+  First, a reproducible support-size measurement on the full stored basis, with a
+  preregistered criterion (Remark~\ref{rem:numerics}).
+  Second, a rank-measurement protocol that does not fix the target dimension in advance
+  (Remark~\ref{rem:rank-protocol}).
+  Third, hypothesis [H2] of~\cite{Beau2026q5a} --- strong convergence of the rescaled
+  generators --- which is untouched by the present results.
 
   \newpage
   \bibliographystyle{alpha}
