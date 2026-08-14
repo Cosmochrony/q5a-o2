@@ -10,16 +10,18 @@ admissibility programme, and establishes the epistemic status of its finite-rank
 - **Pure Fourier modes (proved)**: every BFS fingerprint evaluated at the uniform initial vector is a pure
   Fourier mode, with frequency given by the O12 displacement formula; Gram–Schmidt preserves this purity,
   so every selected basis vector of the pre-saturation window is a pure mode.
-- **Asymptotically small frequencies (proved)**: in the pre-saturation regime $n_*(q) = o(q)$, realised
-  frequencies satisfy $|\xi| \le c_{\max}\,n_*(q) = o(q)$, so $\xi/q \to 0$; no macroscopic frequency
-  selection occurs in the pipeline.
+- **Structure of the realised frequencies (proved)**: in the pre-saturation regime $n_*(q) = o(q)$, the
+  displacements satisfy $|b_j| \le n_*(q) = o(q)$; frequencies are $o(q)$ for block parameters held fixed
+  independently of $q$, while the implemented pipeline samples them uniformly modulo $q$, so macroscopic
+  per-$q$ frequencies occur and no $q$-independent limit frequency is defined in either regime.
 - **Truncation status (proved)**: the three-coordinate array `pi_c` records projections onto the first
   three selected Gram–Schmidt vectors only, a number fixed in advance by the pipeline constant
   `HEFF_DIM = 3`; no quantity computed from it can measure the rank of the admissible sector or exclude
   further directions.
-- **Coercivity ruled out at the $q^{-1}$ scale (proved)**: on normalised Fourier modes the admissibility
-  form satisfies $\mathcal{E}_q(e_\xi, e_\xi) \le 16\,a_{\max}\,q^{-2}$, so no uniform bound
-  $\mathcal{E}_q(f,f) \ge c\,q^{-1}\|f\|^2$ can hold.
+- **Coercivity ruled out at the $q^{-1}$ scale (proved)**: for every unit vector the admissibility form
+  satisfies $\mathcal{E}_q(f, f) \le 16\,a_{\max}\,q^{-2}$ (a consequence of its $q^{-2}$ normalisation
+  prefactor), so no uniform bound $\mathcal{E}_q(f,f) \ge c\,q^{-1}\|f\|^2$ can hold; the spectral-gap
+  question for the unnormalised form is untouched.
 - **Disposition of [H-E1] and [C]**: the canonical filtration of the admissible fibre is the growing toric
   Fourier window $\Omega_n$ of dimension $\min(2n+1, q)$, on which the published admissibility form
   converges to the zero form and has zero-form Mosco limit (Q5a).
@@ -30,9 +32,9 @@ admissibility programme, and establishes the epistemic status of its finite-rank
 | Result | Status |
 |---|---|
 | Fingerprints and selected GS vectors are pure Fourier modes | Proved |
-| Realised pre-saturation frequencies are $o(q)$ | Proved |
+| Structure of the realised frequencies (fixed blocks: $o(q)$; implemented sampling: macroscopic per-$q$, no $q$-independent limit) | Proved |
 | Rank is not measurable from the three-coordinate arrays | Proved |
-| $q^{-1}$ coercivity ([H-E1] as scaled bound) | Ruled out; form is $O(q^{-2})$ on normalised modes |
+| $q^{-1}$ coercivity ([H-E1] as scaled bound) | Ruled out; form is $O(q^{-2})$ on the whole unit sphere (normalisation fact) |
 | Mosco tightness towards a non-trivial limit ([C]) | Superseded: zero-form Mosco limit on the canonical filtration (Q5a) |
 | Strong convergence of rescaled generators ([H2]) | Open |
 

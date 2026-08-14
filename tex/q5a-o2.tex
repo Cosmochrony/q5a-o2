@@ -56,19 +56,23 @@
     initial vector is a pure Fourier mode, with frequency given by the O12 displacement
     formula, and the Gram--Schmidt procedure preserves this purity, so every selected
     basis vector of the pre-saturation window is itself a pure Fourier mode.
-    In the pre-saturation regime $n_*(q) = o(q)$ the realised frequencies satisfy
-    $|\xi| \le c_{\max} n_*(q) = o(q)$: the admissible frequencies are asymptotically
-    small relative to $q$.
+    In the pre-saturation regime $n_*(q) = o(q)$ the realised displacements satisfy
+    $|b_j| \le n_*(q) = o(q)$; for block parameters held fixed independently of $q$ the
+    realised frequencies are $o(q)$, while the implemented pipeline samples the block
+    parameters uniformly modulo $q$, so per-$q$ frequencies of macroscopic size occur and
+    no $q$-independent limit frequency is defined by the block structure in either regime.
     The delimiting results follow.
     First, the three-coordinate array is a truncation fixed by the pipeline constant
     \texttt{HEFF\_DIM = 3}; every quantity computed from it lives, by construction, in the
     span of the first three selected vectors, so no such computation can measure the rank
     of the admissible sector or exclude further directions.
-    Second, a uniform coercivity bound $\Eq(f,f) \ge c\,q^{-1}\|f\|^2$ is ruled out: on
-    normalised Fourier modes the admissibility form is $O(q^{-2})$, consistent with the
-    exact identification of the canonical filtration as a growing Fourier window
+    Second, a uniform coercivity bound $\Eq(f,f) \ge c\,q^{-1}\|f\|^2$ is ruled out: the
+    admissibility form is $O(q^{-2})$ on the whole unit sphere of $\Cq$, a direct
+    consequence of its $q^{-2}$ normalisation prefactor, consistent with the exact
+    identification of the canonical filtration as a growing Fourier window
     $\Omega_n$ of dimension $\min(2n+1, q)$ whose published admissibility form converges
-    to the zero form~\cite{Beau2026q5a}.
+    to the zero form~\cite{Beau2026q5a}; the spectral-gap question for the unnormalised
+    form is untouched by this statement.
     The hypotheses [H-$\mathcal{E}$1] and [C] of the original Q5a framework are therefore
     not closed by the finite-rank route; their disposition on the canonical filtration is
     the one established in~\cite{Beau2026q5a}.
@@ -108,14 +112,14 @@
   The positive part is an exact Fourier description of the pre-saturation pipeline.
   The delimiting part establishes that the widely used three-coordinate reduction is a
   truncation whose outputs cannot certify the rank of the admissible sector, and that the
-  scaled coercivity bound conjectured in the original framework is ruled out on
-  normalised modes.
+  scaled coercivity bound conjectured in the original framework is ruled out on the whole
+  unit sphere, as a consequence of the form's normalisation prefactor.
 
   \paragraph{Organisation.}
     Section~\ref{sec:setup} recalls the setup and distinguishes the two projection
     objects present in the numerical pipeline.
     Section~\ref{sec:purity} proves the pure-mode structure of the pre-saturation
-    pipeline and the asymptotic smallness of the realised frequencies.
+    pipeline and describes the structure of the realised frequencies.
     Section~\ref{sec:truncation} establishes the truncation status of the
     three-coordinate reduction.
     Section~\ref{sec:coercivity} rules out the $q^{-1}$ coercivity scale.
@@ -131,7 +135,7 @@
     representation of frequency $c \in (\Z/q\Z)^\times$.
     The admissible Dirichlet form on the admissible sector of $\Cq$ is
     \[
-      \Eq(f,f) = q^{-2}\sum_{s \in S_q} a_q(s)\,\|\rho_q(s)f - f\|^2_{\Cq},
+      \Eq(f,f) = q^{-2}\sum_{s \in S_q} a_q(s)\,\|\rho_c(s)f - f\|^2_{\Cq},
     \]
     with admissibility weights $a_q(s) > 0$ satisfying~[H-$w$]~\cite{Beau2026w1}.
     Throughout, $\exi{\xi}(k) = q^{-1/2} e^{2\pi i \xi k/q}$ denotes the normalised
@@ -177,22 +181,32 @@
 
   \begin{proposition}[BFS fingerprints are pure modes]
     \label{prop:fingerprint-purity}
-    Each three-step BFS fingerprint $v_{g,\mathbf{c}}$ evaluated at the uniform initial
-    vector $\psi_0 = \exi{0}$ satisfies
+    For a group element $g$ reached by the BFS exploration and a block multi-index
+    $\mathbf{c} = (c_1, c_2, c_3) \in ((\Z/q\Z)^{\times})^3$, the \emph{three-step BFS
+    fingerprint} is the componentwise (Hadamard) product
+    $v_{g,\mathbf{c}} = \bigl(\rho_{c_1}(g_1)\psi_0\bigr) \odot
+    \bigl(\rho_{c_2}(g_2)\psi_0\bigr) \odot \bigl(\rho_{c_3}(g_3)\psi_0\bigr)$ of the
+    three block images of the uniform initial vector $\psi_0 = \exi{0}$, where
+    $g_1, g_2, g_3$ are the accumulated group elements of the three blocks.
+    Every such fingerprint is a pure Fourier mode:
     \[
       v_{g,\mathbf{c}}(k) \propto e^{2\pi i \xi k/q},
       \qquad \xi = (c_1 b_1 + c_2 b_2 + c_3 b_3) \bmod q,
     \]
-    where $b_j$ is the $Y$-displacement of the intermediate group element in block $j$.
+    where $b_j$ is the displacement of $g_j$ along the generator whose Weil action is the
+    position-space modulation.
   \end{proposition}
 
   \begin{proof}
-    The Weil action of the generator $X$ on the uniform vector is
-    $(\rho_c(X^n)\psi_0)(k) = e^{2\pi i c n k/q}\,\psi_0(k)$, a multiplication by a pure
-    phase linear in $k$; the $Y$-action permutes coordinates and preserves this form up
-    to a global phase.
-    Composing the three blocks multiplies the phases, so the fingerprint is proportional
-    to $e^{2\pi i \xi k /q}$ with $\xi$ the stated displacement combination.
+    In the Weil representation, one Heisenberg generator acts on functions on $\Z/q\Z$ by
+    translation and the other by modulation; on the uniform vector the translation part
+    contributes only a relabelling absorbed into a global phase, while a modulation
+    displacement $b$ in block $j$ contributes the factor $e^{2\pi i c_j b k/q}$, a pure
+    phase linear in $k$.
+    The central generator contributes a global phase.
+    Each block image $\rho_{c_j}(g_j)\psi_0$ is therefore proportional to a single Fourier
+    mode of frequency $c_j b_j$, and the Hadamard product multiplies the phases, giving a
+    single mode at the stated combined frequency.
     This is the O12 frequency formula~\cite{Beau2026a16}.
   \end{proof}
 
@@ -213,30 +227,44 @@
     Every selected basis vector is therefore a single normalised mode.
   \end{proof}
 
-  \begin{proposition}[Asymptotic smallness of the realised frequencies]
+  \begin{proposition}[Structure of the realised frequencies]
     \label{prop:small-frequencies}
-    In the pre-saturation regime $n \le n_*(q) = o(q)$, every realised frequency
-    satisfies $|\xi| \le c_{\max}\, n_*(q) = o(q)$, where $c_{\max}$ bounds the block
-    parameters.
-    Consequently $\xi/q \to 0$ as $q \to \infty$ along any family of pre-saturation
-    fingerprints with bounded block parameters.
+    In the pre-saturation regime $n \le n_*(q) = o(q)$:
+    (i) the realised displacements satisfy $|b_j| \le n_*(q) = o(q)$, with no modular
+    wrapping;
+    (ii) if the block parameters $(c_1, c_2, c_3)$ are held fixed as integers independent
+    of $q$, every realised frequency satisfies
+    $|\xi| \le (|c_1|+|c_2|+|c_3|)\, n_*(q) = o(q)$, so $\xi/q \to 0$;
+    (iii) in the implemented pipeline, which samples the block parameters uniformly in
+    $(\Z/q\Z)^{\times}$ at each $q$~\cite{Beau2026a16,Beau2026a29}, realised frequencies
+    of macroscopic size $\xi/q = \Theta(1)$ occur (e.g.\ $c_1 = \lfloor q/2 \rfloor$,
+    $b_1 = 1$), confined to $o(q)$-radius clusters around block-dependent residues.
   \end{proposition}
 
   \begin{proof}
-    The $Y$-displacements accessible within $n$ BFS steps satisfy $|b_j| \le n \le
-    n_*(q)$, and $\xi$ is a fixed integer combination of the $b_j$ with coefficients
-    bounded by $c_{\max}$.
-    Since $n_*(q) = o(q)$, no modular wrapping occurs and the stated bound follows.
+    The displacements accessible within $n$ BFS steps satisfy $|b_j| \le n \le n_*(q)$,
+    and $n_*(q) = o(q)$ excludes wrapping, giving (i).
+    For (ii), $\xi$ is a fixed integer combination of the $b_j$ with $q$-independent
+    coefficients, hence $o(q)$.
+    For (iii), the frequency $\xi = \sum_j c_j b_j \bmod q$ with sampled residues $c_j$
+    ranges over the displacement-shifted lattice of the sampled block; varying the $b_j$
+    within the pre-saturation window moves $\xi$ by $o(q)$, which yields the cluster
+    description, and the example realises $\xi/q$ arbitrarily close to $\tfrac12$.
   \end{proof}
 
-  \begin{remark}[No macroscopic frequency selection]
+  \begin{remark}[No $q$-independent macroscopic frequency]
     \label{rem:no-macroscopic}
-    Proposition~\ref{prop:small-frequencies} rules out, within the pre-saturation
-    pipeline, any convergence of realised frequencies to a fixed macroscopic value
-    $\omega \in (0, \tfrac12)$: the ratios $\xi/q$ tend to zero.
-    A macroscopic frequency could only be produced by fingerprints outside the
-    pre-saturation regime or by block parameters growing with $q$, neither of which is
-    part of the pipeline's calibration.
+    Proposition~\ref{prop:small-frequencies} separates two regimes that the pipeline
+    literature has conflated.
+    With fixed block parameters, the realised frequencies are $o(q)$ and no macroscopic
+    limit exists except zero.
+    With the implemented per-$q$ sampling, macroscopic frequencies occur at each $q$, but
+    the block parameters are resampled as $q$ varies, so the pipeline defines no
+    $q$-independent limit value $\omega_c \in (0,\tfrac12)$: a convergence statement
+    $\xi_c^{(q)}/q \to \omega_c$ requires a $q$-uniform choice of blocks that the
+    pipeline does not supply.
+    Neither regime supports a fixed macroscopic frequency derived from the block
+    structure alone.
   \end{remark}
 
   \begin{remark}[Numerical claims]
@@ -287,39 +315,40 @@
 
   \begin{proposition}[Upper bound on the form at the $q^{-2}$ scale]
     \label{prop:no-coercivity}
-    For every normalised Fourier mode $\exi{\xi} \in \Cq$,
+    For every $f \in \Cq$ with $\|f\|_{\Cq} = 1$,
     \[
-      \Eq(\exi{\xi}, \exi{\xi})
-      \;=\; q^{-2} \sum_{s \in S_q} a_q(s)\, \|\rho_q(s)\exi{\xi} - \exi{\xi}\|^2_{\Cq}
+      \Eq(f, f)
+      \;=\; q^{-2} \sum_{s \in S_q} a_q(s)\, \|\rho_c(s)f - f\|^2_{\Cq}
       \;\le\; 16\, a_{\max}\, q^{-2},
     \]
     where $a_{\max} = \sup_q \sup_s a_q(s) < \infty$ under~[H-$w$]~\cite{Beau2026w1}.
     Consequently there is no constant $c > 0$ independent of $q$ with
-    $\Eq(f,f) \ge c\, q^{-1} \|f\|^2_{\Cq}$ on the admissible sector: the scaled
-    coercivity bound fails on every normalised mode as soon as $q > 16\,a_{\max}/c$.
+    $\Eq(f,f) \ge c\, q^{-1} \|f\|^2_{\Cq}$ on any non-trivial subspace: the scaled
+    coercivity bound fails on every normalised vector as soon as $q > 16\,a_{\max}/c$.
   \end{proposition}
 
   \begin{proof}
-    The generators act on a normalised mode by a unitary that is either a pure phase
-    (diagonal action, $\|(\rho_q(X^{\pm 1}) - I)\exi{\xi}\|^2 =
-    |e^{\pm 2\pi i \xi/q} - 1|^2 = 4\sin^2(\pi\xi/q) \le 4$) or a coordinate
-    permutation composed with phases (again $\|(\rho_q(Y^{\pm 1}) - I)\exi{\xi}\|^2
-    \le 4$ by unitarity and the triangle inequality, since both vectors are unit).
+    Each $\rho_c(s)$ is unitary, so for every unit vector $f$,
+    $\|(\rho_c(s) - I)f\| \le \|\rho_c(s)f\| + \|f\| = 2$, hence
+    $\|(\rho_c(s) - I)f\|^2 \le 4$.
     Summing the four generator terms gives the stated bound with constant
-    $4 \times 4 = 16$.
-    For the failure of the $q^{-1}$ bound, take $f = \exi{\xi}$ for any realised
-    frequency: $\Eq(f,f) \le 16\,a_{\max}\,q^{-2} < c\,q^{-1} = c\,q^{-1}\|f\|^2$
-    for all $q > 16\,a_{\max}/c$.
+    $4 \times 4 = 16$, and $16\,a_{\max}\,q^{-2} < c\,q^{-1}$ for all
+    $q > 16\,a_{\max}/c$.
   \end{proof}
 
-  \begin{remark}[Consistency with the zero-form limit]
+  \begin{remark}[Scope: a normalisation fact, and the untouched spectral question]
     \label{rem:zero-form}
-    Proposition~\ref{prop:no-coercivity} is the pipeline-level face of the exact result
-    of~\cite{Beau2026q5a}: on the canonical Fourier-window filtration the published
-    admissibility form converges to the zero form, uniformly on norm-bounded subsets,
-    and its Mosco limit is the zero form.
-    The $q^{-2}$ scale visible on normalised modes is the correct scale of the published
-    form; a uniform $q^{-1}$ lower bound is excluded.
+    Proposition~\ref{prop:no-coercivity} uses only unitarity and the $q^{-2}$
+    normalisation prefactor in the definition of $\Eq$; it holds on the whole unit
+    sphere and is therefore a statement about the form's normalisation convention, not
+    about the spectrum of any particular subspace.
+    It is the pipeline-level face of the exact result of~\cite{Beau2026q5a}: on the
+    canonical Fourier-window filtration the published admissibility form converges to
+    the zero form, uniformly on norm-bounded subsets, and its Mosco limit is the zero
+    form.
+    The substantive spectral question --- a gap for the unnormalised Dirichlet form, or
+    for a renormalised form on the canonical filtration --- is untouched by this
+    proposition and remains open.
   \end{remark}
 
   \begin{remark}[No compactness route through plane waves]
@@ -350,8 +379,9 @@ Label & Content & Status & Source \\
 {[H-$w$]} & Weights $a_q(s)\to A>0$
 & Proved & \cite{Beau2026w1} \\
 {[H-$\mathcal{E}$1]} & Uniform (scaled) coercivity of $\Eq$
-& Ruled out at the $q^{-1}$ scale (Prop.~\ref{prop:no-coercivity}); form is
-$O(q^{-2})$ on normalised modes, zero-form limit on the canonical filtration
+& Ruled out at the $q^{-1}$ scale (Prop.~\ref{prop:no-coercivity}); the form is
+$O(q^{-2})$ on the whole unit sphere (a normalisation fact), with zero-form limit on the
+canonical filtration; the unnormalised-form gap question is open
 & This paper; \cite{Beau2026q5a} \\
 {[C]} & Mosco tightness towards a non-trivial limit form
 & Superseded: the Mosco limit of the published form on the canonical filtration is the
@@ -363,7 +393,9 @@ zero form
 Prop. & Fingerprints and selected GS vectors are pure Fourier modes
 & Proved (Props.~\ref{prop:fingerprint-purity}, \ref{prop:gs-purity})
 & This paper \\
-Prop. & Realised frequencies are $o(q)$
+Prop. & Structure of the realised frequencies ($o(q)$ displacements; $o(q)$ frequencies
+for fixed blocks; macroscopic per-$q$ frequencies under the implemented sampling; no
+$q$-independent limit)
 & Proved (Prop.~\ref{prop:small-frequencies})
 & This paper \\
 Prop. & Rank is not measurable from the three-coordinate arrays
@@ -379,7 +411,9 @@ Prop. & Rank is not measurable from the three-coordinate arrays
   \label{sec:discussion}
 
   The pre-saturation pipeline has an exact and simple Fourier description: fingerprints
-  and selected Gram--Schmidt vectors are pure modes, at frequencies that are $o(q)$.
+  and selected Gram--Schmidt vectors are pure modes, with $o(q)$ displacements and
+  block-dependent frequencies (macroscopic per-$q$ values under the implemented sampling,
+  with no $q$-independent limit).
   This structure is a property of the fingerprint construction and of Gram--Schmidt
   orthogonality; it holds independently of any rank hypothesis.
 
