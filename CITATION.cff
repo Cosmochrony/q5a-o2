@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you cite this work, please use the metadata from this file."
-title: "Spectral Atomicity of the Admissible Sector: Scaled Coercivity and Mosco Compactness without Nash Inequalities"
+title: "Fourier Structure of the Pre-Saturation Admissible Pipeline: What the Three-Coordinate Projection Does and Does Not Measure"
 type: software
 authors:
   - family-names: "Beau"
@@ -11,7 +11,7 @@ doi: "10.5281/zenodo.19915951"
 license: "CC-BY-4.0"
 preferred-citation:
   type: article
-  title: "Spectral Atomicity of the Admissible Sector: Scaled Coercivity and Mosco Compactness without Nash Inequalities"
+  title: "Fourier Structure of the Pre-Saturation Admissible Pipeline: What the Three-Coordinate Projection Does and Does Not Measure"
   authors:
     - family-names: "Beau"
       given-names: "Jérôme"
