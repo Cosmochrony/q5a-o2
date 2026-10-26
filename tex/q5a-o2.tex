@@ -3,6 +3,11 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathrsfs}
 \usepackage{hyperref}
+\hypersetup{
+  pdftitle={Fourier Structure of the Pre-Saturation Admissible Pipeline: What the Three-Coordinate Projection Does and Does Not Measure},
+  pdfauthor={Jérôme Beau},
+  pdfsubject={Cosmochrony emergent-geometry programme, paper Q5a-O2, version 2.1},
+}
 \usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -67,8 +72,8 @@
     span of the first three selected vectors, so no such computation can measure the rank
     of the admissible sector or exclude further directions.
     Second, a uniform coercivity bound $\Eq(f,f) \ge c\,q^{-1}\|f\|^2$ is ruled out: the
-    admissibility form is $O(q^{-2})$ on the whole unit sphere of $\Cq$, a direct
-    consequence of its $q^{-2}$ normalisation prefactor, consistent with the exact
+    admissibility form is $O(q^{-2})$ on the whole unit sphere of $\Cq$ for uniformly bounded
+    weights, a direct consequence of its $q^{-2}$ normalisation prefactor, consistent with the exact
     identification of the canonical filtration as a growing Fourier window
     $\Omega_n$ of dimension $\min(2n+1, q)$ whose published admissibility form converges
     to the zero form~\cite{Beau2026q5a}; the spectral-gap question for the unnormalised
@@ -91,7 +96,8 @@
 
   The paper~\cite{Beau2026q5a} (Q5a) studies the large-$q$ limit of the admissible
   sector of the Weil representation of $\Heis(\Z/q\Z)$.
-  Its original framework isolated two analytic hypotheses:
+  Its original framework, in its versions up to 2.0, isolated among others two analytic
+  hypotheses:
   \begin{itemize}
     \item \textbf{[H-$\mathcal{E}$1]:} uniform Poincar\'e inequality for the
     admissible Dirichlet form $\Eq$;
@@ -138,7 +144,9 @@
     \[
       \Eq(f,f) = q^{-2}\sum_{s \in S_q} a_q(s)\,\|\rho_c(s)f - f\|^2_{\Cq},
     \]
-    with admissibility weights $a_q(s) > 0$ satisfying~[H-$w$]~\cite{Beau2026w1}.
+    with admissibility weights $a_q(s) > 0$.
+    The convergence hypothesis [H-$w$] of the original framework, $a_q(s) \to A > 0$, is
+    open~\cite{Beau2026w1}.
     Throughout, $\exi{\xi}(k) = q^{-1/2} e^{2\pi i \xi k/q}$ denotes the normalised
     Fourier mode, $\|\exi{\xi}\|_{\Cq} = 1$.
 
@@ -326,7 +334,8 @@
       \;=\; q^{-2} \sum_{s \in S_q} a_q(s)\, \|\rho_c(s)f - f\|^2_{\Cq}
       \;\le\; 16\, a_{\max}\, q^{-2},
     \]
-    where $a_{\max} = \sup_q \sup_s a_q(s) < \infty$ under~[H-$w$]~\cite{Beau2026w1}.
+    where $a_{\max} = \sup_q \sup_s a_q(s)$ is assumed finite, as it is under the open
+    hypothesis~[H-$w$]~\cite{Beau2026w1}.
     Consequently there is no constant $c > 0$ independent of $q$ with
     $\Eq(f,f) \ge c\, q^{-1} \|f\|^2_{\Cq}$ on any non-trivial subspace: the scaled
     coercivity bound fails on every normalised vector as soon as $q > 16\,a_{\max}/c$.
@@ -370,8 +379,9 @@
   \label{sec:update}
 
   Table~\ref{tab:status} records the status of the hypotheses of the original Q5a
-  framework in the light of the present results and of the exact filtration results
-  of~\cite{Beau2026q5a}.
+  framework (versions up to 2.0) in the light of the present results, of the exact filtration
+  results
+  of~\cite{Beau2026q5a}, and of~\cite{Beau2026w1,Beau2026h2}.
 
   \begin{table}[h]
     \centering
@@ -382,7 +392,7 @@
 Label & Content & Status & Source \\
 \midrule
 {[H-$w$]} & Weights $a_q(s)\to A>0$
-& Proved & \cite{Beau2026w1} \\
+& Open: W1 establishes no proof & \cite{Beau2026w1} \\
 {[H-$\mathcal{E}$1]} & Uniform (scaled) coercivity of $\Eq$
 & Ruled out at the $q^{-1}$ scale (Prop.~\ref{prop:no-coercivity}); the form is
 $O(q^{-2})$ on the whole unit sphere (a normalisation fact), with zero-form limit on the
@@ -393,7 +403,9 @@ canonical filtration; the unnormalised-form gap question is open
 zero form
 & \cite{Beau2026q5a} \\
 {[H2]} & Strong convergence of rescaled generators
-& Open & \cite{Beau2026q5a} \\
+& Proved as stated in Q5a version 2.0 (Hypothesis 4.3 there), for the isometric sinc
+embedding; it discharges no hypothesis of the current Q5a
+& \cite{Beau2026h2} \\
 \midrule
 Prop. & Fingerprints and selected GS vectors are pure Fourier modes
 & Proved (Props.~\ref{prop:fingerprint-purity}, \ref{prop:gs-purity})
@@ -430,13 +442,14 @@ Prop. & Rank is not measurable from the three-coordinate arrays
   zero-form Mosco limit; the analytic programme of the original Q5a framework is to be
   pursued on that filtration, not through a fixed finite rank.
 
-  Three items are open.
+  Two items are open.
   First, a reproducible support-size measurement on the full stored basis, with a
   preregistered criterion (Remark~\ref{rem:numerics}).
   Second, a rank-measurement protocol that does not fix the target dimension in advance
   (Remark~\ref{rem:rank-protocol}).
-  Third, hypothesis [H2] of~\cite{Beau2026q5a} --- strong convergence of the rescaled
-  generators --- which is untouched by the present results.
+  Hypothesis [H2] of the original framework, the strong convergence of the rescaled
+  generators, is proved in~\cite{Beau2026h2} for the isometric sinc embedding; it is untouched
+  by the present results and supplies no spatial limit operator.
 
   \newpage
   \bibliographystyle{alpha}

@@ -36,7 +36,8 @@ admissibility programme, and establishes the epistemic status of its finite-rank
 | Rank is not measurable from the three-coordinate arrays | Proved |
 | $q^{-1}$ coercivity ([H-E1] as scaled bound) | Ruled out; form is $O(q^{-2})$ on the whole unit sphere (normalisation fact) |
 | Mosco tightness towards a non-trivial limit ([C]) | Superseded: zero-form Mosco limit on the canonical filtration (Q5a) |
-| Strong convergence of rescaled generators ([H2]) | Open |
+| Strong convergence of rescaled generators ([H2] of Q5a version 2.0) | Proved in H2, for the isometric sinc embedding; discharges no hypothesis of the current Q5a |
+| Weight convergence ([H-w] of Q5a version 2.0) | Open: W1 establishes no proof |
 
 ## Context in the Programme
 
@@ -53,7 +54,6 @@ admissibility programme, and establishes the epistemic status of its finite-rank
    (the archived diagnostics are not reproducible from this repository and include a delocalised case,
    $q = 61$, pair $c = 2$).
 2. A rank-measurement protocol that does not fix the target dimension in advance.
-3. Hypothesis [H2] (strong convergence of the rescaled generators).
 
 ## Repository Structure
 
