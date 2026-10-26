@@ -18,13 +18,13 @@ admissibility programme, and establishes the epistemic status of its finite-rank
   three selected Gram–Schmidt vectors only, a number fixed in advance by the pipeline constant
   `HEFF_DIM = 3`; no quantity computed from it can measure the rank of the admissible sector or exclude
   further directions.
-- **Coercivity ruled out at the $q^{-1}$ scale (proved)**: for every unit vector the admissibility form
+- **Coercivity ruled out at the $q^{-1}$ scale (proved)**: for uniformly bounded weights and every unit vector the admissibility form
   satisfies $\mathcal{E}_q(f, f) \le 16\,a_{\max}\,q^{-2}$ (a consequence of its $q^{-2}$ normalisation
   prefactor), so no uniform bound $\mathcal{E}_q(f,f) \ge c\,q^{-1}\|f\|^2$ can hold; the spectral-gap
   question for the unnormalised form is untouched.
 - **Disposition of [H-E1] and [C]**: the canonical filtration of the admissible fibre is the growing toric
-  Fourier window $\Omega_n$ of dimension $\min(2n+1, q)$, on which the published admissibility form
-  converges to the zero form and has zero-form Mosco limit (Q5a).
+  Fourier window $\Omega_n$ of dimension $\min(2n+1, q)$, on which, for uniformly bounded weights, the
+  published admissibility form converges to the zero form and has zero-form Mosco limit (Q5a).
   The original hypotheses are not closed by a finite-rank route.
 
 ## Main Results
